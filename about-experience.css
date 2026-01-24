@@ -22,7 +22,7 @@ body.dark-mode {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    width: 75%;
+    width: 50%;
 }
 
 .card {
@@ -304,7 +304,7 @@ body.dark-mode .experience-details .year {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 20px;
-    width: 75%;
+    width: 50%;
 }
 
 .beyond-coding-card {
