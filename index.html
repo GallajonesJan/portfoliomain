@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Header</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./about-experience.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="../assets/me.png" alt="Profile Picture">
+            </div>
+            
+            <div class="profile-info">
+                <div>
+                    <div class="profile-top">
+                        <div class="name-section">
+                            <h1>
+                                Jan Lauren Gallajones
+                                <span class="verified-badge">✓</span>
+                            </h1>
+                            <div class="location">
+                                <span>📍</span>
+                                <span>San Pablo City, Laguna Philippines</span>
+                            </div>
+                            <div class="roles">
+                                <span>Aspiring Software Engineer</span>
+                            </div>
+                        </div>
+                        <div class="toggle-switch" onclick="toggleDarkMode(this)">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="scheduleCall()">
+                         Schedule a Call
+                    </button>
+                    <button class="btn btn-secondary" onclick="sendEmail()">
+                         Send Email
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About & Experience Section -->
+    <div class="main-container">
+        <!-- About Section -->
+        <div class="card about-card">
+            <div class="card-header">
+                <h2>About</h2>
+            </div>
+            <div class="card-content">
+                <p>I'm a full-stack software engineer specializing in developing solutions with JavaScript, Python, and PHP. I work on projects including building modern web applications, mobile apps, search engine optimization, digital marketing, and making code tutorials.</p>
+                
+                <p>I've helped startups and MSMEs grow and streamline their processes through software solutions. I've also built a community of over 200,000 developers sharing knowledge and mentorship.</p>
+                
+                <p>Lately, I've been diving deeper into the world of artificial intelligence, focusing on integrating AI tools and techniques into modern applications. My work now includes developing AI-powered solutions, creating intelligent applications, and leveraging generative AI to optimize development workflows and deliver cutting-edge technology.</p>
+            </div>
+        </div>
+
+        <!-- Tech Stack Section -->
+        <div class="card tech-stack-card">
+            <div class="card-header">
+                <h2>Tech Stack</h2>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="card-content">
+                <div class="tech-category">
+                    <h3>Frontend</h3>
+                    <div class="tech-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">React.js</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3>Backend</h3>
+                    <div class="tech-tags">
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <h3>Embedded Systems</h3>
+                    <div class="tech-tags">
+                        <span class="tag">Arduino</span>
+                        <span class="tag">C++ Embedded</span>
+                        <span class="tag">PCB Designing</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3>Automation and Integration</h3>
+                    <div class="tech-tags">
+                        <span class="tag">Zapier</span>
+                        <span class="tag">Pabbly</span>
+                        <span class="tag">Go High Level</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h3>Software Engineering & Collaboration</h3>
+                    <div class="tech-tags">
+                        <span class="tag">Git</span>
+                        <span class="tag">Github</span>
+                        <span class="tag">Agile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="card experience-card">
+            <div class="card-header">
+                <h2>Experience</h2>
+            </div>
+            <div class="card-content">
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>Research Associate</h3>
+                        <p class="company">Cognitek</p>
+                        <span class="year">Present</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>Design Engineer</h3>
+                        <p class="company">Avinya Inc.</p>
+                        <span class="year">2025</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>Robotics Specialist</h3>
+                        <p class="company">TechFactors Inc</p>
+                        <span class="year">2024</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>Systems and Automation Intern</h3>
+                        <p class="company">Optogrow Operations & Management</p>
+                        <span class="year">2024</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>BS Computer Engineering</h3>
+                        <p class="company">Laguna State Polytechnic University - San Pablo City Campus</p>
+                        <span class="year">2019</span>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-bullet"></div>
+                    <div class="experience-details">
+                        <h3>Hello World! 👋</h3>
+                        <p class="company">Wrote my first line of code</p>
+                        <span class="year">2019</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Beyond Coding & Recent Projects Section -->
+    <div class="bottom-section">
+        <!-- Beyond Coding Card -->
+        <div class="card beyond-coding-card">
+            <div class="card-header">
+                <h2>Beyond Coding</h2>
+            </div>
+            <div class="card-content">
+                <p>When not writing code, I focus on learning about DevOps, CyberSecurity and strengthening my knowledge about Data Structures and Algorithms also I study about AI and Machine Learning, I do all of this everyday after work in a scheduled manner.</p>
+            </div>
+        </div>
+
+        <!-- Recent Projects Card -->
+        <div class="card recent-projects-card">
+            <div class="card-header">
+                <h2>Recent Projects</h2>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="card-content">
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <h3>AI Elderly</h3>
+                        <p class="project-desc">An Embedded System for Heart Monitoring for Elderly</p>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                    <div class="project-item">
+                        <h3>V-Wise</h3>
+                        <p class="project-desc">An online voting platform for Student Council Elections</p>
+                        <a href="#" class="project-link">View Details</a>
+                    </div>
+                    <div class="project-item">
+                        <h3>DIIN.PH</h3>
+                        <p class="project-desc">AI-powered wardrobe assistant</p>
+                        <a href="#" class="project-link">diin.ph</a>
+                    </div>
+                    <div class="project-item">
+                        <h3>DYNAMIS Workout Tracker</h3>
+                        <p class="project-desc">AI-powered workout tracker</p>
+                        <a href="#" class="project-link">dynamis-app.online</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="./about-experience.js"></script>
+</body>
+</html>
