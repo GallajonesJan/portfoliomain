@@ -21,7 +21,7 @@ function scheduleCall() {
 }
 
 function sendEmail() {
-    alert('Opening email client...');
+    window.location.href = 'mailto:gallajonesjanlauren@gmail.com?subject=Contact from Portfolio&body=Hi Jan Lauren,%0D%0A%0D%0AI would like to get in touch with you.%0D%0A%0D%0A';
 }
 
 function visitCommunity() {
