@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Elderly - Project Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            transition: background 0.3s ease;
+            font-size: 14px;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: #1a1a1a;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            color: #000;
+        }
+
+        body.dark-mode .back-button {
+            color: #aaa;
+        }
+
+        body.dark-mode .back-button:hover {
+            color: #fff;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .project-card {
+            background: #2d2d2d;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        body.dark-mode .project-header {
+            border-bottom-color: #4d4d4d;
+        }
+
+        .project-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .project-title {
+            color: #fff;
+        }
+
+        .project-subtitle {
+            font-size: 18px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .project-subtitle {
+            color: #aaa;
+        }
+
+        .toggle-switch {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            width: 48px;
+            height: 28px;
+            background: #e0e0e0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 1000;
+        }
+
+        .toggle-switch.active {
+            background: #4a5568;
+        }
+
+        .toggle-knob {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: left 0.3s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-knob::before {
+            content: '☀️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .toggle-switch.active .toggle-knob {
+            left: 23px;
+        }
+
+        .toggle-switch.active .toggle-knob::before {
+            content: '🌙';
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .section-title {
+            color: #fff;
+        }
+
+        .section-content {
+            color: #333;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .section-content {
+            color: #ccc;
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .tag {
+            background: #3d3d3d;
+            color: #ccc;
+        }
+
+        .tag:hover {
+            background: #e0e0e0;
+        }
+
+        body.dark-mode .tag:hover {
+            background: #4d4d4d;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 250px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .image-container {
+            background: #3d3d3d;
+        }
+
+        .image-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Modal styles for image preview */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .placeholder-text {
+            color: #999;
+            font-size: 14px;
+        }
+
+        body.dark-mode .placeholder-text {
+            color: #666;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .features-list li {
+            border-bottom-color: #4d4d4d;
+            color: #ccc;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            display: inline-block;
+            width: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .architecture-section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        body.dark-mode .architecture-section {
+            background: #1a1a1a;
+        }
+
+        .architecture-section h4 {
+            color: #000;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        body.dark-mode .architecture-section h4 {
+            color: #fff;
+        }
+
+        .architecture-section ul {
+            list-style: disc;
+            padding-left: 24px;
+            color: #333;
+        }
+
+        body.dark-mode .architecture-section ul {
+            color: #ccc;
+        }
+
+        .architecture-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .project-card {
+                padding: 24px;
+            }
+
+            .project-title {
+                font-size: 28px;
+            }
+
+            .project-subtitle {
+                font-size: 16px;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .toggle-switch {
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-switch" onclick="toggleDarkMode(this)">
+        <div class="toggle-knob"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Portfolio</a>
+
+        <div class="project-card">
+            <div class="project-header">
+                <h1 class="project-title">AI-Elderly Health Monitoring System</h1>
+                <p class="project-subtitle">Real-time Health Tracking with AI-Powered Risk Assessment</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Project Overview</h2>
+                <div class="section-content">
+                    <p>The AI-Elderly Health Monitoring System is an intelligent, non-invasive health tracking platform designed specifically for elderly patients aged 40 and above. Built by the BELGIUMsys team, this system combines IoT hardware with machine learning to provide real-time vital sign monitoring and intelligent health risk assessment.</p>
+                    <p>The system integrates ESP32 microcontrollers with MAX30102 sensors to continuously monitor heart rate and blood oxygen saturation (SpO₂). Data is transmitted to a cloud-based backend where machine learning models analyze vital signs and predict alert levels, enabling early detection of potential health issues.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Features</h2>
+                <ul class="features-list">
+                    <li>Real-time heart rate and SpO₂ monitoring using MAX30102 sensor</li>
+                    <li>Age-adjusted health risk assessment with ML-powered alert system</li>
+                    <li>Automatic background data synchronization via ESP32</li>
+                    <li>Interactive dashboard with real-time vital sign visualization</li>
+                    <li>Historical health data tracking with Chart.js graphs</li>
+                    <li>AI-powered chatbot (AlertoBot) for health guidance using GPT-4</li>
+                    <li>JWT-based secure authentication and user management</li>
+                    <li>Three-tier alert system (Normal, Warning, Critical)</li>
+                    <li>Responsive design with dark mode support</li>
+                    <li>MySQL database with bcrypt password encryption</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technologies Used</h2>
+                <div class="tech-tags">
+                    <span class="tag">ESP32</span>
+                    <span class="tag">MAX30102 Sensor</span>
+                    <span class="tag">Python Flask</span>
+                    <span class="tag">Machine Learning (XGBoost)</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">HTML/CSS/JavaScript</span>
+                    <span class="tag">Chart.js</span>
+                    <span class="tag">OpenAI GPT-4</span>
+                    <span class="tag">JWT Authentication</span>
+                    <span class="tag">Flask-CORS</span>
+                    <span class="tag">bcrypt</span>
+                    <span class="tag">ngrok</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">System Architecture</h2>
+                <div class="section-content">
+                    <p>The system follows a three-tier architecture with clear separation of concerns:</p>
+                    
+                    <div class="architecture-section">
+                        <h4>Hardware Layer (IoT)</h4>
+                        <ul>
+                            <li><strong>ESP32 Microcontroller:</strong> Manages sensor communication and WiFi connectivity</li>
+                            <li><strong>MAX30102 Sensor:</strong> Captures heart rate, SpO₂, IR, and RED light data</li>
+                            <li><strong>Real-time Data Transmission:</strong> Sends readings every 3 seconds to backend</li>
+                        </ul>
+                    </div>
+
+                    <div class="architecture-section">
+                        <h4>Backend Layer (Python Flask)</h4>
+                        <ul>
+                            <li><strong>RESTful API:</strong> Handles authentication, data storage, and retrieval</li>
+                            <li><strong>ML Alert System:</strong> XGBoost classifier with age-adjusted risk assessment</li>
+                            <li><strong>Database Management:</strong> MySQL with normalized schema for users and readings</li>
+                            <li><strong>JWT Security:</strong> Token-based authentication with bcrypt password hashing</li>
+                            <li><strong>ESP32 Proxy:</strong> Bridges HTTP requests between frontend and ESP32 device</li>
+                        </ul>
+                    </div>
+
+                    <div class="architecture-section">
+                        <h4>Frontend Layer (Web Application)</h4>
+                        <ul>
+                            <li><strong>Dashboard:</strong> Real-time vital sign display with Chart.js visualizations</li>
+                            <li><strong>Health Logs:</strong> Historical data table with automatic refresh</li>
+                            <li><strong>Device Management:</strong> ESP32 connection controls with background sync</li>
+                            <li><strong>AI Assistant:</strong> GPT-4 powered chatbot for health inquiries</li>
+                            <li><strong>User Settings:</strong> Profile management with secure password updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Machine Learning Model</h2>
+                <div class="section-content">
+                    <p>The system employs an XGBoost classifier trained on 1,800 synthetic samples with realistic medical parameters:</p>
+                    
+                    <div class="architecture-section">
+                        <h4>Model Specifications</h4>
+                        <ul>
+                            <li><strong>Algorithm:</strong> XGBoost (400 estimators, max depth 6)</li>
+                            <li><strong>Input Features:</strong> Heart Rate, SpO₂, Age</li>
+                            <li><strong>Output Classes:</strong> Normal (0), Warning (1), Critical (2)</li>
+                            <li><strong>Age-Adjusted Thresholds:</strong> Dynamic HR/SpO₂ limits based on patient age</li>
+                            <li><strong>Training Accuracy:</strong> ~95% with cross-validation</li>
+                            <li><strong>Fallback System:</strong> Rule-based alerts if ML model fails</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Project Images</h2>
+                <div class="image-gallery">
+                    <div class="image-container">
+                        <img src="../assets/db.png" alt="Dashboard Interface" onclick="openModal(this.src)">
+                    </div>
+                    <div class="image-container">
+                        <img src="../assets/maindb.png" alt="Main Dashboard" onclick="openModal(this.src)">
+                    </div>
+                    <div class="image-container">
+                        <img src="../assets/hl.png" alt="Health Logs" onclick="openModal(this.src)">
+                    </div>
+                    <div class="image-container">
+                        <img src="../assets/chatbot.png" alt="AI Assistant" onclick="openModal(this.src)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Challenges & Solutions</h2>
+                <div class="section-content">
+                    <p><strong>Challenge 1: Real-time Data Synchronization</strong><br>
+                    Solution: Implemented ESP32 background service with automatic reconnection and 3-second polling intervals to ensure continuous data flow even when the device page is closed.</p>
+                    
+                    <p><strong>Challenge 2: Cross-Origin Communication</strong><br>
+                    Solution: Deployed Flask backend with ngrok tunneling and Flask-CORS to enable secure communication between local ESP32, cloud backend, and web frontend.</p>
+                    
+                    <p><strong>Challenge 3: Age-Specific Health Assessment</strong><br>
+                    Solution: Developed age-adjusted ML model with dynamic thresholds that account for physiological changes in elderly patients (40-90 years).</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Impact & Results</h2>
+                <div class="section-content">
+                    <p>The AI-Elderly system successfully demonstrates the potential of combining IoT, machine learning, and modern web technologies to create practical healthcare solutions. Key achievements include:</p>
+                    <ul class="features-list">
+                        <li>95% ML model accuracy in classifying health alert levels</li>
+                        <li>Sub-3-second latency from sensor reading to dashboard display</li>
+                        <li>Seamless background synchronization with automatic reconnection</li>
+                        <li>Responsive interface supporting both mobile and desktop devices</li>
+                        <li>Secure authentication system protecting sensitive health data</li>
+                    </ul>
+                    <p>This project serves as a proof-of-concept for affordable, accessible health monitoring systems specifically designed for elderly care, with potential applications in home care, assisted living facilities, and remote patient monitoring programs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Full screen image">
+    </div>
+
+    <script>
+        function toggleDarkMode(element) {
+            element.classList.toggle('active');
+            document.body.classList.toggle('dark-mode');
+            
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.toggle-switch').classList.add('active');
+            }
+        });
+
+        // Image modal functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
