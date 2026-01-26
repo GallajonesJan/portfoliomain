@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function scheduleCall() {
-    alert('Opening calendar to schedule a call...');
+    window.open('https://mail.google.com/mail/?view=cm&fs=1&to=gallajonesjanlauren@gmail.com&su=Schedule a Call Request&body=Hi Jan Lauren,%0D%0A%0D%0AI would like to schedule a call with you.%0D%0A%0D%0APreferred Date:%0D%0APreferred Time:%0D%0A%0D%0A', '_blank');
 }
 
 function sendEmail() {
@@ -27,4 +27,5 @@ function sendEmail() {
 function visitCommunity() {
     alert('Redirecting to community page...');
 }
+
 
