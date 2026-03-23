@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>TaskFlow | Jan Lauren Gallajones</title>
+    <meta name="description" content="TaskFlow is a full-stack task management web application built with React, Node.js, Express, PostgreSQL, and Supabase — featuring authentication, real-time notifications, and team collaboration.">
+    <meta name="keywords" content="TaskFlow, Task Manager, React, Node.js, Supabase, PostgreSQL, Full Stack, Jan Lauren Gallajones">
+    <meta name="author" content="Jan Lauren Gallajones">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="TaskFlow | Full-Stack Task Manager">
+    <meta property="og:description" content="Full-stack task management app with React, Node.js, and Supabase">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👨‍💻</text></svg>">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            transition: background 0.3s ease;
+            font-size: 14px;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: #1a1a1a;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-button:hover { color: #000; }
+
+        body.dark-mode .back-button { color: #aaa; }
+        body.dark-mode .back-button:hover { color: #fff; }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .project-card {
+            background: #2d2d2d;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        body.dark-mode .project-header {
+            border-bottom-color: #4d4d4d;
+        }
+
+        .project-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .project-title { color: #fff; }
+
+        .project-subtitle {
+            font-size: 18px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .project-subtitle { color: #aaa; }
+
+        .toggle-switch {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            width: 48px;
+            height: 28px;
+            background: #e0e0e0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 1000;
+        }
+
+        .toggle-switch.active { background: #4a5568; }
+
+        .toggle-knob {
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: left 0.3s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-knob::before {
+            content: '☀️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+        }
+
+        .toggle-switch.active .toggle-knob { left: 23px; }
+        .toggle-switch.active .toggle-knob::before { content: '🌙'; }
+
+        .section { margin-bottom: 32px; }
+        .section:last-child { margin-bottom: 0; }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .section-title { color: #fff; }
+
+        .section-content {
+            color: #333;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+
+        body.dark-mode .section-content { color: #ccc; }
+
+        .section-content p { margin-bottom: 16px; }
+        .section-content p:last-child { margin-bottom: 0; }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .tag { background: #3d3d3d; color: #ccc; }
+        .tag:hover { background: #e0e0e0; }
+        body.dark-mode .tag:hover { background: #4d4d4d; }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .features-list li {
+            border-bottom-color: #4d4d4d;
+            color: #ccc;
+        }
+
+        .features-list li:last-child { border-bottom: none; }
+
+        .features-list li::before {
+            content: '✓';
+            display: inline-block;
+            width: 20px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .architecture-section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        body.dark-mode .architecture-section { background: #1a1a1a; }
+
+        .architecture-section h4 {
+            color: #000;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        body.dark-mode .architecture-section h4 { color: #fff; }
+
+        .architecture-section ul {
+            list-style: disc;
+            padding-left: 24px;
+            color: #333;
+        }
+
+        body.dark-mode .architecture-section ul { color: #ccc; }
+
+        .architecture-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .live-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .live-link:hover { background: #333; }
+
+        body.dark-mode .live-link { background: #4a5568; }
+        body.dark-mode .live-link:hover { background: #5a6578; }
+
+        @media (max-width: 768px) {
+            .project-card { padding: 24px; }
+            .project-title { font-size: 28px; }
+            .project-subtitle { font-size: 16px; }
+            .toggle-switch { top: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="toggle-switch" onclick="toggleDarkMode(this)">
+        <div class="toggle-knob"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Portfolio</a>
+
+        <div class="project-card">
+            <div class="project-header">
+                <h1 class="project-title">TaskFlow</h1>
+                <p class="project-subtitle">Full-Stack Task Manager with Real-Time Collaboration and AI-Assisted Development</p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Project Overview</h2>
+                <div class="section-content">
+                    <p>TaskFlow is a full-stack task management web application designed for both personal and professional use. The project covers the complete software development lifecycle from UI design and frontend implementation to backend API development, database integration, and cloud deployment.</p>
+                    <p>Built with React on the frontend and Node.js with Express on the backend, TaskFlow uses PostgreSQL hosted on Supabase as its database. The system supports user authentication, task assignments, real-time notifications, file attachments, comments, and a fully responsive interface with light and dark mode.</p>
+                    <a href="https://task-flow-seven-azure.vercel.app/" target="_blank" class="live-link">View Live App</a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key Features</h2>
+                <ul class="features-list">
+                    <li>User authentication with email/password and Google OAuth via Supabase Auth</li>
+                    <li>Admin and member role system with permission-based access control</li>
+                    <li>Full task CRUD, create, edit, delete, and mark tasks as complete</li>
+                    <li>Task assignment system with per-member completion tracking</li>
+                    <li>Real-time push notifications using Supabase Realtime subscriptions</li>
+                    <li>Comment system with email notifications via Nodemailer</li>
+                    <li>File and link attachments stored in Supabase Storage</li>
+                    <li>Filter, sort, and search tasks by status, priority, due date, and category</li>
+                    <li>Dashboard with live stats, donut chart, and team progress tracking</li>
+                    <li>Monthly calendar view showing tasks by due date</li>
+                    <li>Categories with color coding and per-category progress bars</li>
+                    <li>Light, dark, and system theme modes with persistent preference</li>
+                    <li>Fully responsive layout for mobile and desktop</li>
+                    <li>Landing page with feature showcase and call-to-action</li>
+                    <li>Forgot password and reset password flows</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technologies Used</h2>
+                <div class="tech-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Vite</span>
+                    <span class="tag">SCSS</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Express</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Supabase</span>
+                    <span class="tag">Supabase Auth</span>
+                    <span class="tag">Supabase Realtime</span>
+                    <span class="tag">Supabase Storage</span>
+                    <span class="tag">JWT</span>
+                    <span class="tag">Nodemailer</span>
+                    <span class="tag">Multer</span>
+                    <span class="tag">Vercel</span>
+                    <span class="tag">Render</span>
+                    <span class="tag">Git & GitHub</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">System Architecture</h2>
+                <div class="section-content">
+                    <p>TaskFlow follows a three-tier architecture with a clear separation between the frontend, backend API, and the Supabase-hosted database and auth layer.</p>
+
+                    <div class="architecture-section">
+                        <h4>Frontend (React + Vite)</h4>
+                        <ul>
+                            <li><strong>React SPA:</strong> Component-based UI with React Router for page navigation</li>
+                            <li><strong>State Management:</strong> Local state with useState and useCallback; centralized API calls via a service layer</li>
+                            <li><strong>SCSS Modules:</strong> Per-component SCSS files using a shared variables system for consistent theming</li>
+                            <li><strong>Real-Time Updates:</strong> Supabase Realtime channels for live notification delivery</li>
+                            <li><strong>Auth Context:</strong> Global user session managed via React Context with Supabase Auth</li>
+                        </ul>
+                    </div>
+
+                    <div class="architecture-section">
+                        <h4>Backend (Node.js + Express)</h4>
+                        <ul>
+                            <li><strong>RESTful API:</strong> Modular route files for tasks, categories, users, assignments, comments, and attachments</li>
+                            <li><strong>Admin Middleware:</strong> Header-based admin check using a configurable ADMIN_EMAIL environment variable</li>
+                            <li><strong>File Uploads:</strong> Multer middleware for parsing multipart form data; files stored in Supabase Storage buckets</li>
+                            <li><strong>Email Notifications:</strong> Nodemailer with Gmail SMTP for comment and assignment alerts</li>
+                            <li><strong>Preflight Checks:</strong> Server startup validates all environment variables and Supabase connectivity before accepting traffic</li>
+                        </ul>
+                    </div>
+
+                    <div class="architecture-section">
+                        <h4>Database (PostgreSQL via Supabase)</h4>
+                        <ul>
+                            <li><strong>Tables:</strong> tasks, categories, profiles, task_assignments, task_comments, task_attachments, notifications</li>
+                            <li><strong>Row Level Security:</strong> Supabase RLS policies restrict data access per user role</li>
+                            <li><strong>Triggers:</strong> Auto-update timestamps on comment edits via PostgreSQL triggers</li>
+                            <li><strong>Auth Integration:</strong> Supabase Auth manages user sessions; profiles table extends auth.users</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Challenges & Solutions</h2>
+                <div class="section-content">
+                    <p><strong>Challenge 1: Role-Based Access Without a Full Auth Server</strong><br>
+                    Solution: Used Supabase Auth for session management combined with a custom ADMIN_EMAIL environment variable on the backend. The frontend injects an x-user-email header with every API request, which the backend middleware checks against the configured admin email to grant or restrict access.</p>
+
+                    <p><strong>Challenge 2: Real-Time Notifications Across Sessions</strong><br>
+                    Solution: Leveraged Supabase Realtime's postgres_changes channel to subscribe to INSERT events on the notifications table filtered by user ID. New notifications appear instantly in the bell icon without polling.</p>
+
+                    <p><strong>Challenge 3: File Uploads Through a Backend Proxy</strong><br>
+                    Solution: Configured Multer on the Express backend to accept multipart file data, then forwarded the file buffer directly to Supabase Storage using the service role key. This keeps storage credentials server-side and out of the browser.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Impact & Results</h2>
+                <div class="section-content">
+                    <p>TaskFlow demonstrates end-to-end full-stack competency across frontend, backend, database design, cloud deployment, and real-time systems. Key outcomes include:</p>
+                    <ul class="features-list">
+                        <li>Fully deployed and live frontend on Vercel, backend on Render, database on Supabase</li>
+                        <li>Complete authentication system with Google OAuth, forgot password, and reset password</li>
+                        <li>Real-time notification delivery with under-second latency via Supabase Realtime</li>
+                        <li>Secure file attachment system with Supabase Storage and signed URLs</li>
+                        <li>Responsive design tested on mobile and desktop screen sizes</li>
+                        <li>Admin control panel with team assignment, progress tracking, and task management</li>
+                    </ul>
+                    <p>This project served as a practical deep dive into modern full-stack development patterns including database schema design, REST API architecture, React state management, cloud storage, and real-time systems all in a single production-deployed application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./dark-mode.js"></script>
+</body>
+</html>
